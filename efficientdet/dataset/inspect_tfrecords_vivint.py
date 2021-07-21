@@ -87,7 +87,6 @@ class RecordInspect:
     scale_image = tf.reshape(scale_image, (1, 1, -1))
 
     logging.info('Visualizing TfRecords %s', FLAGS.file_pattern)
-    print("Self.cls_to_label=\n",self.cls_to_label)
     for i, zip_data in enumerate(zip(gt_data, images, scales)):
       gt, image, scale = zip_data
       boxes = gt[:, :4]
