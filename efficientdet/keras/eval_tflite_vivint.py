@@ -49,7 +49,7 @@ def define_flags():
   flags.DEFINE_bool('pre_class_nms', False, 'Use pre_class_nms for evaluation.')
   flags.DEFINE_string('hparams', '', 'Comma separated k=v pairs or a yaml file')
   flags.DEFINE_bool('result',True,'Write evaluation results to a txt file') #optional parameter to generate a eval result file
-  flags.DEFINE_string('result_filename','result','filename of the txt file ')
+  flags.DEFINE_string('result_filename','result','filename of the txt file ') #optional parameter for a filename of eval result file
   flags.mark_flag_as_required('val_file_pattern')
   flags.mark_flag_as_required('tflite_path')  
 
@@ -152,14 +152,14 @@ def main(_):
       filename=config.val_json_file, label_map=label_map)
   
   # Amey edit
+  # specific changes for Vivint data
   # setting static parameters from train config yaml
-  config.num_classes= 6
+  config.num_classes= 6 #actual classes+1 (background)
   config.label_map= {1:'person',2:'Animal',3:'face',4:'automobile',5:'package'}
   config.tflite_max_detections = 50
   config.aspect_ratios = [0.3937,0.8348,1.7368]
   config.anchor_scale = 2.0
   config.moving_average_decay = 0
-  config.autoaugment_policy = 'v1'
   #############
 
   # dataset
