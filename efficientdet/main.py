@@ -13,6 +13,24 @@
 # limitations under the License.
 # ==============================================================================
 """The main training script."""
+
+"""
+
+*For TPU, run eval worker separately*
+Num Cores per Replica: https://cloud.google.com/tpu/docs/types-zones
+
+*For GPU, train and eval can be done*
+
+python main.py --train_file_pattern=gs://arrtest/tfrecords/train/train* \
+--mode=train -model_dir={MODEL_TO_BE_SAVED} \
+--hparams={CONFIG_YAML_FILE} \
+--save_checkpoints_steps=1000 --\
+--num_epochs=200 --train_batch_size=128 --num_examples_per_epoch=64000 \
+--ckpt=gs://amey_model_train/model-train-backup/eff-data/ckpts/efficientdet-lite0 \
+--strategy=tpu --tpu={TPU_NAME} --tpu_zone={TPU_ZONE} --num_cores_per_replica=8
+
+"""
+
 import multiprocessing
 import os
 from absl import app
