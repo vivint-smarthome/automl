@@ -27,9 +27,9 @@ import dataloader
 import det_model_fn
 import hparams_config
 import utils
-from keras import efficientdet_keras
-from keras import label_util
-from keras import postprocess
+from tf2 import efficientdet_keras
+from tf2 import label_util
+from tf2 import postprocess
 from visualize import vis_utils
 from tensorflow.python.client import timeline  # pylint: disable=g-direct-tensorflow-import
 
@@ -60,8 +60,7 @@ def image_preprocess(image, image_size, mean_rgb, stddev_rgb):
 def batch_image_files_decode(image_files):
   raw_images = tf.TensorArray(tf.uint8, size=0, dynamic_size=True)
   for i in tf.range(tf.shape(image_files)[0]):
-    image = tf.io.decode_image(image_files[i])
-    image.set_shape([None, None, None])
+    image = tf.io.decode_image(image_files[i], expand_animations=False)
     raw_images = raw_images.write(i, image)
   return raw_images.stack()
 

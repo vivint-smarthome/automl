@@ -23,7 +23,7 @@ import tensorflow as tf
 
 import hparams_config
 import inference
-from keras import efficientdet_keras
+from tf2 import efficientdet_keras
 
 flags.DEFINE_string('image_path', None, 'Location of test image.')
 flags.DEFINE_string('output_dir', None, 'Directory of annotated output images.')
@@ -61,7 +61,7 @@ def main(_):
   model = efficientdet_keras.EfficientDetModel(config=config)
   model.build((None, None, None, 3))
   model.load_weights(tf.train.latest_checkpoint(FLAGS.model_dir))
-  model.summary()
+  model.summary(expand_nested=True)
 
   class ExportModel(tf.Module):
 
